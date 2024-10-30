@@ -1,21 +1,27 @@
 class OrderProcessor:
+    # sample order: order = {"items": [{"id": 1, "name": "Widget", "price": 20.0, "quantity": 2}]}
+
     def process_order(self, order):
         # Step 1: Validate order details
         if not order.get("customer_id"):
             raise ValueError("Customer ID is required.")
         if not order.get("items"):
             raise ValueError("Order must contain items.")
-
+    
+    def calculate_total_price(self, order):
         # Step 2: Calculate total price
         total_price = 0
         for item in order["items"]:
             total_price += item["price"] * item["quantity"]
 
+    def apply_discount(self,order):
         # Step 3: Apply discounts if applicable
-        if order.get("discount_code") == "SUMMER20":
-            total_price *= 0.8  # 20% discount
-        elif order.get("discount_code") == "WELCOME10":
-            total_price *= 0.9  # 10% discount
+        discount_code = {
+            "SUMMER20": 0.8,
+            "WELCOME10": 0.9
+        }
+        if order.get('discount_code') in discount_code:
+            discount_code['discount_code']
 
         # Step 4: Update inventory
         for item in order["items"]:
